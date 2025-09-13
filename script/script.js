@@ -34,43 +34,41 @@ callBtn.forEach(function (callBtn) {
         const realTime = (`${hours}:${minutes}:${seconds}`);
 
         // console.log(realTime);
-        const cardTitle = document.querySelectorAll('.card-title')[0];
-        const cardNumber = document.querySelectorAll('.card-number')[0];
+        const Cardinfo = callBtn.closest('.card-container-info')
+        const cardTitle = Cardinfo.querySelector('.card-title');
+        const cardNumber = Cardinfo.querySelector('.card-number');
         const cardTitleValue = cardTitle.innerText;
         const cardNumberValue = cardNumber.innerText;
+
         alert(`${cardTitleValue}
 ${cardNumberValue}`)
-        const newPera = document.createElement('p');
+        const parentdiv = document.createElement('parentdiv')
+        const div = document.createElement('div');
         const newPera1 = document.createElement('p');
         const newPera2 = document.createElement('p');
-        newPera2.style.alignContent = 'right';
-        newPera.classList.add('call-data')
-        newPera.style.marginTop = "14px";
-        newPera.style.paddingTop = "10px";
-        newPera1.style.paddingBottom = "10px";
-        newPera.style.paddingLeft = "10px";
-        newPera1.style.paddingLeft = "10px";
-        newPera.style.backgroundColor = "#DEDEDE";
-        newPera1.style.backgroundColor = "#DEDEDE";
-        // newPera1.classList.add('call-info-style')
-        newPera.innerText = cardTitleValue;
-        newPera1.innerText = cardNumberValue;
-        newPera2.innerText = realTime;
-        // console.log(newPera2)
+        const newPera3 = document.createElement('p');
 
+        newPera1.innerText = cardTitleValue;
+        newPera2.innerText = cardNumberValue;
+        newPera3.innerText = realTime;
 
+        parentdiv.append(div);
+        div.append(newPera1);
+        div.append(newPera2);
+        parentdiv.append(newPera3);
+
+        parentdiv.style.display = 'flex'
+        parentdiv.style.justifyContent = 'space-between'
+        parentdiv.style.marginTop = '10px'
+        parentdiv.style.backgroundColor = 'lightgrey'
+        parentdiv.style.padding = '10px'
         const callInfo = document.getElementById('call-info');
-        // callInfo.appendChild(newPera);
+        callInfo.appendChild(parentdiv);
 
-
-        callInfo.appendChild(newPera);
-        callInfo.appendChild(newPera1);
-        callInfo.appendChild(newPera2);
         const callPoint = document.getElementById('call-point');
         const callPointResult = parseInt(callPoint.innerText) - 20;
-        // console.log(callPointResult);
         if (callPointResult < 0) {
-            alert('Your Balance not available')
+            alert('Balance are not available')
             breaks;
         }
 
@@ -89,8 +87,23 @@ copyBtn.forEach(function (copyBtn) {
         const countCopyValue = parseInt(countCopy.innerText) + 1;
         countCopy.innerText = countCopyValue;
 
+        const card = copyBtn.closest('.card-container');
 
+        // Get the number inside the card
+        const number = card.querySelector('.cd-no').innerText;
+        console.log(number)
+        alert(`copied : ${number}`);
+
+        // Copy to clipboard
+        navigator.clipboard.writeText(number)
     })
 })
 
+// Call Clear History
+
+document.getElementById('clear-btn').addEventListener('click', function () {
+    const callHistory = document.getElementById('call-info');
+    callHistory.innerHTML = '';
+
+})
 
